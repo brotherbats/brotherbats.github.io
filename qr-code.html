@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .contact-container {
+        background: #fff;
+        padding: 30px;
+        max-width: 400px;
+        width: 100%;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .contact-container h2 {
+        margin-bottom: 10px;
+    }
+
+    .contact-container p {
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .contact-container button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 25px;
+        background: #667eea;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .contact-container button:hover {
+        background: #5563d6;
+    }
+
+    /* Overlay */
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        perspective: 1000px;
+    }
+
+    /* Popup */
+    .popup {
+        background: white;
+        width: 100%;
+        max-width: 420px;
+        padding: 30px;
+        border-radius: 15px;
+        transform: scale(0.7) rotateX(-15deg);
+        opacity: 0;
+        transition: all 0.4s ease;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .overlay.active {
+        display: flex;
+    }
+
+    .overlay.active .popup {
+        transform: scale(1) rotateX(0);
+        opacity: 1;
+    }
+
+    .popup h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .popup input,
+    .popup textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .popup textarea {
+        resize: none;
+        height: 100px;
+    }
+
+    .popup .actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .popup button {
+        flex: 1;
+        padding: 12px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .send-btn {
+        background: #667eea;
+        color: white;
+    }
+
+    .close-btn {
+        background: #eee;
+    }
+
+    @media (max-width: 480px) {
+        .popup {
+            padding: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="contact-container">
+    <h2>Contact Us</h2>
+    <p>Have a question? We'd love to hear from you.</p>
+    <button onclick="openPopup()">Open Contact Form</button>
+</div>
+
+<div class="overlay" id="overlay">
+    <div class="popup">
+        <h3>Send us a message</h3>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea placeholder="Your Message"></textarea>
+        <div class="actions">
+            <button class="send-btn">Send</button>
+            <button class="close-btn" onclick="closePopup()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openPopup() {
+        document.getElementById('overlay').classList.add('active');
+    }
+
+    function closePopup() {
+        document.getElementById('overlay').classList.remove('active');
+    }
+</script>
+
+</body>
+</html>
