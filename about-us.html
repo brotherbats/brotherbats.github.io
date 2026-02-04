@@ -195,6 +195,12 @@
 			gap: 10px;
 		}
 
+		.no-img {
+			pointer-events: none;
+			user-select: none;
+			-webkit-user-drag: none;
+		}
+
 
         @media (max-width: 1024px) {
 		  .nav-links li:nth-child(1), /* Why Us */
@@ -275,7 +281,7 @@
     <footer id="contact">
         <div class="footer-content">
             <div class="contact-info">
-                <img src="https://brotherbats.github.io/images/Logo%20Tr%20nav.png" width="200">
+                <img src="https://brotherbats.github.io/images/Logo%20Tr%20nav.png" class="no-img" width="200">
             </div>
             <div class="contact-info">
                 <h4>Contact Us</h4>
