@@ -15,6 +15,7 @@
   --card: #ffffff;
 }
 
+/* ===== Global ===== */
 body {
   margin: 0;
   font-family: 'Source Sans 3', system-ui, sans-serif;
@@ -22,6 +23,7 @@ body {
 }
 
 
+/* ===== Fixed Navbar ===== */
 .nav-wrapper {
   position: fixed;
   top: 0;
@@ -39,6 +41,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
@@ -46,6 +51,9 @@ body {
   height: 50px;
   width: 100px;
   object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .nav-links {
@@ -186,9 +194,18 @@ main {
   border: none;
 }
 
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--border);
+.btn-about {
+  min-width: 160px;
+  height: 3rem;
+  padding: 0 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .3s ease;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
 }
 
 /* ===== Visual ===== */
@@ -236,22 +253,30 @@ section {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+  align-items: stretch;
 }
 
 .card {
   background: #E6F6FF;
-  color: ##002D47;
+  color: #002D47;
   border-radius: 14px;
   padding: 32px;
-  text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   font-weight: 600;
+  display: flex;
+  align-items: center;      /* vertical center */
+  justify-content: center;  /* horizontal center */
+  text-align: center;
 }
 
 .card.primary {
   background: var(--primary);
   color: #fff;
   font-size: 18px;
+  display: flex;
+  align-items: center;      /* vertical center */
+  justify-content: center;  /* horizontal center */
+  text-align: center;
 }
 
 /* ===== Services ===== */
@@ -358,7 +383,7 @@ section .btn-primary {
 	width: 200px;
 	height: 8px;
 	border-radius: 8px; /* Rounded corners */
-	background: linear-gradient(45deg, #ff6b6b, #f7d794); /* Gradient color */
+	background: linear-gradient(45deg, #00AFD1, #EA1889, #FFCF00); /* Gradient color */
 	margin: 10px auto; /* Center horizontally and add space above/below */
 	display: block;
 }
@@ -383,6 +408,7 @@ section .btn-primary {
 }
 
 
+/* ===== Responsive ===== */
 @media (max-width: 1024px) {
   .hero-grid,
   .services-grid,
@@ -433,20 +459,84 @@ section .btn-primary {
 	padding: 40px;
   }
   
+   /* ===== Remove blue outline on buttons after click ===== */
   .servicebutton:focus,
-  .servicebutton:active {
+  .servicebutton:active,
+  .letconnect:focus,
+  .letconnect:active  {
     outline: none;
     box-shadow: none;
   }
-   .servicebutton {
+   .servicebutton, .letconnect {
     -webkit-tap-highlight-color: transparent;
     outline: none;
-    box-shadow: none;
   }
   
   .vertical-label {
         display: none;
       }
+}
+
+/* --- FOOTER --- */
+footer {
+	background: #00101A;
+	color: #fff;
+}
+
+.footer-content {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 2rem;
+	padding: 4rem 10%;
+}
+
+.footer-text {
+	padding: 1rem;
+	padding-top: 0px;
+	text-align: center;
+}
+
+.contact-info h4 {
+	margin-bottom: 1.2rem;
+	color: var(--primary);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.contact-info p {
+	margin-bottom: 0.8rem;
+	opacity: 0.8;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.no-img {
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-drag: none;
+}
+
+@media (max-width: 1024px) {
+  .why-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .why-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  .card.primary {
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -456,20 +546,26 @@ section .btn-primary {
   }
 }
 
+@media (max-width: 768px) {
+	.architect-grid { grid-template-columns: 1fr; }
+}
+
+
 </style>
 </head>
 
 <body>
 
+<!-- Navbar -->
 <div class="nav-wrapper">
   <nav class="navbar">
-	<a href="#hero">
+	<a href="#main">
 	  <img src="/images/Logo Tr nav.png" class="logo" alt="Logo">
 	</a>
     <ul class="nav-links">
       <li><a href="#why-us" class="navlinksa">Why Us</a></li>
       <li><a href="#services" id="nav-services" class="navlinksa">What We Serve</a></li>
-      <li><a href="#" class="letconnect">Let's Connect</a></li>
+      <li><a href="#contact" class="letconnect">Let's Connect</a></li>
     </ul>
   </nav>
 </div>
@@ -477,7 +573,7 @@ section .btn-primary {
 <main>
 
 <!-- Hero -->
-<section class="hero" id="hero">
+<section class="hero" id="main">
   <div class="container">
   <br><br><br>
     <div class="hero-grid">
@@ -486,21 +582,19 @@ section .btn-primary {
         <div class="badge">Expert Development Duo</div>
         <h1 class="hero-title">
           Modern Software for
-          <span class="text-primary">Financial Precision</span>
+          <span class="text-primary">Business Precision</span>
         </h1>
-        <p class="hero-text">
-          We build high-performance web applications and secure financial systems
-          with the agility of a two-developer team and the precision of a full-scale agency.
+        <p class="hero-text">          
+		   We build reliable software and web applications for businesses with the agility of a two-developer team and the precision of a full-scale agency. We focus on systems that support real business processes rather than generic templates.
         </p>
         <div class="hero-actions">
-          <button class="btn btn-primary">View Our Work</button>
-          <button class="btn btn-outline">Meet the Team</button>
+          <button class="btn btn-primary" id="discovermore" onclick="location.href='#services'" >Discover More</button>
         </div>
       </div>
 
       <div class="hero-visual">
         <div class="visual-image"
-          style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBtgS8gnWReDeqf7emHbibGsyb-eyBW5rITz-t8RVJ59cyruuI4sNS-DYJK5vzhZkwjENBrXDVkHoYQwzRODATzfIl730tupqBxY3g-pfVKeOhM9YrvayC_XcejYDULr1_r28z6o4p-BfI0cximBFY7Aq-49X0PrypD5Vt7S5A2thTfvB08uyTrJwyBinBJwBTs9GBeJIFB5YZ1Q4QK81JUARaScbzyfQvLmutRi0LMPyOyh8KrBE5nLHdyCI8K4pnIQ2DD7e5q_vC7');">
+          style="background-image:url('https://brotherbats.github.io/images/Home%20concept%20img.jpg');">
         </div>
       </div>
 
@@ -511,7 +605,7 @@ section .btn-primary {
 <section class="about">
   <div>
     <h2 class="section-title">What is Brotherbats?</h2>
-    <button class="btn-primary">About Us</button>
+    <button class="btn-about" onclick="location.href='/about-us.html'" >About Us</button>
   </div>
   <p class="aboutp">
     Brotherbats is a focused software development studio that builds and maintains managed applications for businesses that depend on accuracy, reliability, and long-term stability. 
@@ -521,19 +615,19 @@ section .btn-primary {
 <section id="why-us">
   <h2 class="section-title">Why Us?</h2>
   <p class="why-text">
-    We focus on secure, scalable, and business-ready software solutions
-    with full ownership and transparency.
+	We believe software can solve difficult problems, and that good software is not only built, but responsibly maintained.
+	Our work emphasizes clean architecture, secure data handling, and clear communication with our clients. 
   </p>
 
   <div class="why-cards">
-    <div class="card">Clean Code<br>Business Focus</div>
-    <div class="card primary">100%<br>Yours</div>
-    <div class="card primary">100%<br>Yours</div>
-    <div class="card primary">100%<br>Yours</div>
+    <div class="card">For Technical Partnership</div>
+    <div class="card primary">100% client-side application</div>
+    <div class="card primary">With the latest tech and features</div>
+    <div class="card primary">Tailor-made to your requirements</div>
   </div>
 </section>
 
-
+<!-- Services -->
 <section class="services" id="services">
   <div class="vertical-label">Our Services</div>
   <h2 class="section-title">What we serve</h2>
@@ -548,7 +642,7 @@ section .btn-primary {
     </div>
 
     <div class="service-info" id="info">
-      Internal business tools, admin dashboards, workflow automation, and scalable platforms.
+      We build custom web applications including internal business tools, admin dashboards, workflow automation systems, and scalable platforms designed to support long-term operations and growth.
     </div>
   </div>
 </section>
@@ -580,9 +674,26 @@ section .btn-primary {
   </div>
 </section>
 
-<section style="padding:80px">
-  <h1>Welcome Logo</h1>
-</section>
+ <footer id="contact">
+	<div class="footer-content">
+		<div class="contact-info">
+			<img src="https://brotherbats.github.io/images/Logo%20Tr%20nav.png" class="no-img" width="200">
+		</div>
+		<div class="contact-info">
+			<h4>Contact Us</h4>
+			<p>📧 brotherbats@protonmail.com</p>
+		</div>
+		<div class="contact-info">
+			<h4>Ready to build?</h4>
+			<p>We design and manage custom web platforms built for accuracy, reliability, and long-term stability. 
+			If you’re looking for a technical partner, we’d be glad to connect.</p>
+			<p>Reach out for business solutions.</p>
+		</div>
+	</div>
+	<div class="footer-text">
+		&copy; 2026 Brotherbats.  All rights reserved.
+	</div>
+</footer>
 
 </main>
 
@@ -595,10 +706,10 @@ const info = document.getElementById("info");
 const services = document.getElementById("services");
 
 const content = [
-  "Internal business tools, admin dashboards, workflow automation, and scalable platforms.",
-  "Automated billing, financial reporting, and invoicing systems.",
-  "Portals, marketplaces, and collaboration platforms.",
-  "Ongoing maintenance, support, and updates."
+  "We build custom web applications including internal business tools, admin dashboards, workflow automation systems, and scalable platforms designed to support long-term operations and growth.",
+  "We develops automated billing, invoicing, reconciliation, and financial reporting systems with a strong focus on accuracy, consistency, and data reliability.",
+  "We create secure, role-based portals and platforms such as exam portals, marketplaces, and collaboration systems that manage users, workflows, and access efficiently.",
+  "We provides ongoing maintenance, monitoring, and support to keep applications stable, secure, and aligned with evolving business needs through updates and enhancements."
 ];
 
 let activeIndex = 0;
@@ -621,6 +732,7 @@ function updateService(index) {
 }
 
 
+// Scroll-trigger only for desktop
 function handleScroll() {
   if (ignoreScroll) return;
 
@@ -647,10 +759,12 @@ function handleScroll() {
 
 window.addEventListener("scroll", handleScroll);
 
+// Button clicks
 buttons.forEach((btn, i) =>
   btn.addEventListener("click", () => updateService(i))
 );
 
+// Navbar "What We Serve" click
 document.getElementById("nav-services").addEventListener("click", () => {
   ignoreScroll = true;
   updateService(0);
@@ -660,8 +774,18 @@ document.getElementById("nav-services").addEventListener("click", () => {
   }, 600);
 });
 
+document.getElementById("discovermore").addEventListener("click", () => {
+  ignoreScroll = true;
+  updateService(0);
+
+  setTimeout(() => {
+    ignoreScroll = false;
+  }, 600);
+});
+
+// Optional: update activeIndex on window resize if needed
 window.addEventListener("resize", () => {
-  
+  // Force update on resize
   if (window.innerWidth <= 1024 && activeIndex !== 0) {
     updateService(0);
   }
@@ -670,3 +794,4 @@ window.addEventListener("resize", () => {
 
 </body>
 </html>
+
